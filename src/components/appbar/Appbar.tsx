@@ -11,7 +11,8 @@ const AppBar: React.FC<AppBarProps> = ({ username }) => {
   const handleLogout = () => {
     localStorage.removeItem('token'); // ลบ token ออกจาก localStorage
     localStorage.removeItem('username'); // ลบ username ออกจาก localStorage
-    navigate('/login'); // เปลี่ยนเส้นทางไปยังหน้า login
+    navigate('/'); // เปลี่ยนเส้นทางไปยังหน้า Home หลังจาก Logout
+    window.location.reload(); // รีเฟรชหน้าเว็บหลังจาก logout
   };
 
   return (
@@ -27,18 +28,18 @@ const AppBar: React.FC<AppBarProps> = ({ username }) => {
           </button>
         ) : (
           <div>
-            <a
-              href="/login"
+            <button
+              onClick={() => navigate('/login')}
               className="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-700 mr-2"
             >
               Login
-            </a>
-            <a
-              href="/register"
+            </button>
+            <button
+              onClick={() => navigate('/register')}
               className="bg-yellow-500 text-white py-2 px-4 rounded hover:bg-yellow-700"
             >
               Register
-            </a>
+            </button>
           </div>
         )}
       </div>

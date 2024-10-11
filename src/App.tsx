@@ -1,21 +1,18 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import Signup from './components/register/Register';
-import Dashboard from './components/Dashboard/Dashboard';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Home from './components/home/Home'; // หน้า Home
+import Login from './components/login/Login'; 
 import Register from './components/register/Register';
-import Login from './components/login/Login';
+import Dashboard from './components/dashboard/Dashboard'; // หน้า Dashboard หลังจาก login สำเร็จ
 
 const App: React.FC = () => {
-  const isLoggedIn = localStorage.getItem('token'); // ตรวจสอบว่ามี token อยู่ใน localStorage หรือไม่
-
   return (
     <Router>
       <Routes>
-      <Route path="/" element={<Dashboard />} />
+        <Route path="/" element={<Home />} /> {/* หน้าแรกคือ Home */}
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/dashboard" element={isLoggedIn ? <Dashboard /> : <Navigate to="/" />} />
+        <Route path="/dashboard" element={<Dashboard />} />
       </Routes>
     </Router>
   );
