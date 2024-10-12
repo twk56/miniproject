@@ -15,6 +15,7 @@ const AddExpense: React.FC = () => {
 
   const user_id = localStorage.getItem('user_id'); // ดึง user_id จาก localStorage
 
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };

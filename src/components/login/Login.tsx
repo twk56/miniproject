@@ -26,7 +26,8 @@ const Login: React.FC = () => {
       const response = await axios.post('http://localhost:5000/login', formData);
       if (response.data.success) {
         alert('Login successful');
-        localStorage.setItem('token', response.data.token); // เก็บ token ลงใน localStorage
+        localStorage.setItem('token', response.data.token);
+        localStorage.setItem('user_id', response.data.user_id); // เก็บ token ลงใน localStorage
         localStorage.setItem('username', formData.username); 
         navigate('/'); // เปลี่ยนไปยังหน้า Dashboard
       } else {

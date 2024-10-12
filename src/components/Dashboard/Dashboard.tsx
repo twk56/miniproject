@@ -28,11 +28,13 @@ const Dashboard: React.FC = () => {
 
   const fetchExpenses = async () => {
     const user_id = localStorage.getItem('user_id');
+    console.log('User ID:', user_id); // เพิ่ม log เพื่อตรวจสอบค่า user_id
     try {
       const response = await axios.get('http://localhost:5000/api/expenses', {
         params: { user_id }
       });
-      setExpenses(response.data.expenses); // ดึงข้อมูลจาก API และบันทึกลง state
+      console.log('Expenses fetched:', response.data.expenses);  // เพิ่ม log เพื่อตรวจสอบข้อมูลที่ดึงได้
+      setExpenses(response.data.expenses);
     } catch (error) {
       console.error('Error fetching expenses:', error);
     }
@@ -40,24 +42,26 @@ const Dashboard: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gray-100">
-  <div className="max-w-4xl mx-auto p-8">
-    <h1 className="text-3xl font-bold mb-6">Your Expenses</h1>
-    {expenses.length === 0 ? (
-      <p className="text-gray-500">No expenses found</p>
-    ) : (
-      <ul className="space-y-4">
-        {expenses.map((expense) => (
-          <li key={expense.id} className="bg-white p-4 rounded-lg shadow-md">
-            <div className="font-semibold">{expense.title}</div>
-            <div className="text-gray-500">{expense.amount} - {expense.category}</div>
-            <div className="text-gray-400">{expense.date}</div>
-            {expense.image && (
-              <img
-                src={`http://localhost:5000/uploads/${expense.image}`}
-                alt="receipt"
-                className="mt-2 w-32 h-32 object-cover"
-              />
-            )}
+    <div className="max-w-4xl mx-auto p-8">
+      <h1 className="text-3xl font-bold mb-6">Your Expenses</h1>
+      {expenses.length === 0 ? (
+        <p className="text-gray-500">No expenses found</p>
+      ) : (
+        <ul className="space-y-4">
+          {expenses.map((expense) => (
+            <li key={expense.id} className="bg-white p-4 rounded-lg shadow-md">
+              <div className="font-semibold">{expense.title}</div>
+              <div className="text-gray-500">{expense.amount} - {expense.category}</div>
+              <div className="text-gray-400">
+                {new Date(expense.date).toLocaleDateString()} {/* แสดงวันที่ในรูปแบบที่สวยงาม */}
+              </div>
+              {expense.image && (
+                <img
+                  src={`http://localhost:5000/uploads/${expense.image}`}
+                  alt="receipt"
+                  className="mt-2 w-32 h-32 object-cover"
+                />
+              )}
           </li>
         ))}
       </ul>
@@ -68,3 +72,4 @@ const Dashboard: React.FC = () => {
 };
 
 export default Dashboard;
+
