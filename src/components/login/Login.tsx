@@ -27,7 +27,7 @@ const Login: React.FC = () => {
       if (response.data.success) {
         alert('Login successful');
         localStorage.setItem('token', response.data.token); // เก็บ token ลงใน localStorage
-        localStorage.setItem('username', formData.username); // เก็บ username ลงใน localStorage
+        localStorage.setItem('username', formData.username); 
         navigate('/'); // เปลี่ยนไปยังหน้า Dashboard
       } else {
         alert('Login failed');
