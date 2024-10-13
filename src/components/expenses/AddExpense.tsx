@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const AddExpense: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -14,6 +15,16 @@ const AddExpense: React.FC = () => {
   const [success, setSuccess] = useState(''); // เพิ่ม success message
 
   const user_id = localStorage.getItem('user_id'); // ดึง user_id จาก localStorage
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      // ถ้าไม่มี token ให้กลับไปที่หน้า login
+      navigate('/');
+    }
+  }, [navigate]);
 
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -45,7 +56,7 @@ const AddExpense: React.FC = () => {
         headers: { 'Content-Type': 'multipart/form-data' }
       });
       if (response.data.success) {
-        setSuccess('Expense added successfully'); // แสดงข้อความเมื่อเพิ่มสำเร็จ
+        setSuccess('เพิ่มข้อมูลสำเร็จ'); // แสดงข้อความเมื่อเพิ่มสำเร็จ
         setFormData({
           title: '',
           amount: '',
@@ -54,7 +65,7 @@ const AddExpense: React.FC = () => {
           image: null
         });
       } else {
-        setError('Failed to add expense'); // แสดงข้อผิดพลาดหากไม่สำเร็จ
+        setError('การเพิ่มข้อมูลไม่สำเร็จ'); // แสดงข้อผิดพลาดหากไม่สำเร็จ
       }
     } catch (error) {
       setError('Error adding expense');
@@ -66,13 +77,13 @@ const AddExpense: React.FC = () => {
 
   return (
     <form onSubmit={handleSubmit} className="bg-white p-6 rounded-lg shadow-md max-w-md mx-auto space-y-4">
-      <h2 className="text-2xl font-bold text-center mb-4">Add New Expense</h2>
+      <h2 className="text-2xl font-bold text-center mb-4">เพิ่มข้อมูล</h2>
       
       {error && <div className="bg-red-100 text-red-700 p-2 rounded-md">{error}</div>}
       {success && <div className="bg-green-100 text-green-700 p-2 rounded-md">{success}</div>}
 
       <div>
-        <label className="block text-sm font-medium text-gray-700">Expense Title</label>
+        <label className="block text-sm font-medium text-gray-700">ชื่อ</label>
         <input 
           type="text" 
           name="title" 
@@ -85,7 +96,7 @@ const AddExpense: React.FC = () => {
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-700">Amount</label>
+        <label className="block text-sm font-medium text-gray-700">จำนวน</label>
         <input 
           type="number" 
           name="amount" 
@@ -98,7 +109,7 @@ const AddExpense: React.FC = () => {
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-700">Category</label>
+        <label className="block text-sm font-medium text-gray-700">หมวดหมู่</label>
         <select 
           name="category" 
           value={formData.category} 
@@ -106,13 +117,13 @@ const AddExpense: React.FC = () => {
           className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           required
         >
-          <option value="income">Income</option>
-          <option value="expense">Expense</option>
+          <option value="income">รายได้</option>
+          <option value="expense">ค่าใช้จ่าย</option>
         </select>
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-700">Date</label>
+        <label className="block text-sm font-medium text-gray-700">วันเดือนปี</label>
         <input 
           type="date" 
           name="date" 
@@ -138,7 +149,7 @@ const AddExpense: React.FC = () => {
         className="w-full bg-indigo-600 text-white py-2 rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50 transition duration-200"
         disabled={loading}
       >
-        {loading ? 'Adding Expense...' : 'Add Expense'}
+        {loading ? 'Adding Expense...' : 'กดเพื่อเพิ่มข้อมูล'}
       </button>
     </form>
   );

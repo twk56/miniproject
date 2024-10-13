@@ -74,9 +74,9 @@ const Dashboard: React.FC = () => {
   return (
     <div className="min-h-screen bg-gray-100">
       <div className="max-w-4xl mx-auto p-8">
-        <h1 className="text-3xl font-bold mb-6">Your Expenses</h1>
+        <h1 className="text-3xl font-bold mb-6">ข้อมูลของคุณ</h1>
         {expenses.length === 0 ? (
-          <p className="text-gray-500">No expenses found</p>
+          <p className="text-gray-500">ไม่พบข้อมูลของคุณ</p>
         ) : (
           <ul className="space-y-4">
             {expenses.map((expense) => (
@@ -123,10 +123,10 @@ const Dashboard: React.FC = () => {
                       />
                     )}
                     <button onClick={() => handleEdit(expense)} className="bg-blue-500 text-white p-2 rounded mt-2">
-                      Edit
+                      แก้ไข
                     </button>
                     <button onClick={() => handleDelete(expense.id)} className="bg-red-500 text-white p-2 rounded ml-2 mt-2">
-                      Delete
+                      ลบ
                     </button>
                   </>
                 )}

@@ -16,30 +16,45 @@ const Sidebar: React.FC<SidebarProps> = ({ username }) => {
   };
 
   return (
-    <div className="w-64 h-full bg-gray-800 text-white flex flex-col justify-between fixed">
-      <nav className="flex flex-col p-4">
-        <Link to="/dashboard" className="mb-4 text-lg hover:text-gray-300">
+    <div className="w-64 h-full bg-gradient-to-b from-gray-900 to-gray-700 text-white flex flex-col justify-between fixed shadow-lg">
+      <nav className="flex flex-col p-4 space-y-4">
+        <Link
+          to="/dashboard"
+          className="text-lg hover:bg-gray-600 p-3 rounded-md transition duration-300 ease-in-out transform hover:scale-105 hover:text-gray-200"
+        >
           Dashboard
         </Link>
-        <Link to="/add-expense" className="mb-4 text-lg hover:text-gray-300">
+        <Link
+          to="/add-expense"
+          className="text-lg hover:bg-gray-600 p-3 rounded-md transition duration-300 ease-in-out transform hover:scale-105 hover:text-gray-200"
+        >
           Add Expense
         </Link>
 
         {!username && (
           <>
-            <Link to="/login" className="mb-4 text-lg hover:text-green-500">
+            <Link
+              to="/login"
+              className="text-lg hover:bg-green-600 p-3 rounded-md transition duration-300 ease-in-out transform hover:scale-105 hover:text-white"
+            >
               Login
             </Link>
-            <Link to="/register" className="mb-4 text-lg hover:text-yellow-500">
+            <Link
+              to="/register"
+              className="text-lg hover:bg-yellow-500 p-3 rounded-md transition duration-300 ease-in-out transform hover:scale-105 hover:text-white"
+            >
               Register
             </Link>
           </>
         )}
       </nav>
-      
+
       {username && (
         <div className="p-4 mt-auto">
-          <button onClick={handleLogout} className="text-lg text-red-500 hover:text-red-700 w-full">
+          <button
+            onClick={handleLogout}
+            className="text-lg bg-red-500 hover:bg-red-700 text-white p-3 rounded-md transition duration-300 ease-in-out w-full"
+          >
             Logout
           </button>
         </div>
