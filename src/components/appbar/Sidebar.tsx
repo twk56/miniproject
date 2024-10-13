@@ -28,7 +28,7 @@ const Sidebar: React.FC<SidebarProps> = ({ username }) => {
           to="/add-expense"
           className="text-lg hover:bg-gray-600 p-3 rounded-md transition duration-300 ease-in-out transform hover:scale-105 hover:text-gray-200"
         >
-          Add Expense
+          เพิ่มรายรับ-รายจ่าย
         </Link>
 
         {!username && (
