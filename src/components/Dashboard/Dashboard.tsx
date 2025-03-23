@@ -21,9 +21,9 @@ const Dashboard: React.FC = () => {
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (!token) {
-      navigate("/"); // ถ้าไม่มี token ให้กลับไปที่หน้า login
+      navigate("/");
     } else {
-      fetchExpenses(); // ถ้ามี token ให้ดึงข้อมูล expense
+      fetchExpenses();
     }
   }, [navigate]);
 
@@ -42,7 +42,7 @@ const Dashboard: React.FC = () => {
   const handleDelete = async (id: number) => {
     try {
       await axios.delete(`http://localhost:5000/api/expenses/${id}`);
-      setExpenses(expenses.filter((expense) => expense.id !== id)); // อัปเดต state เพื่อเอาข้อมูลที่ลบออก
+      setExpenses(expenses.filter((expense) => expense.id !== id));
     } catch (error) {
       console.error("Error deleting expense:", error);
     }
@@ -63,17 +63,15 @@ const Dashboard: React.FC = () => {
     if (!editingExpense) return;
   
     try {
-      // ตรวจสอบว่ามี visibility ในข้อมูลที่ส่งไปยัง API
       const updatedData = {
         ...formData,
-        visibility: formData.visibility || 'private', // ค่า default ถ้าไม่ได้เลือก
+        visibility: formData.visibility || 'private',
       };
   
-      // ส่งข้อมูลไปยัง API
       await axios.put(`http://localhost:5000/api/expenses/${editingExpense.id}`, updatedData);
   
-      fetchExpenses(); // ดึงข้อมูลใหม่หลังจากแก้ไขสำเร็จ
-      setEditingExpense(null); // รีเซ็ตฟอร์มแก้ไข
+      fetchExpenses();
+      setEditingExpense(null);
       setFormData({});
     } catch (error) {
       console.error('Error saving expense:', error);
