@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import Sidebar from '../appbar/Sidebar'; // นำเข้า Sidebar
+import Sidebar from '../appbar/Sidebar';
 
 interface Expense {
   id: number;
@@ -12,18 +12,18 @@ interface Expense {
 }
 
 const Home: React.FC = () => {
-  const username = localStorage.getItem('username'); // ตรวจสอบว่ามี username หรือไม่
+  const username = localStorage.getItem('username');
   const [expenses, setExpenses] = useState<Expense[]>([]);
 
 
   useEffect(() => {
     fetchPublicExpenses(); 
-    fetchExpenses(); // ดึงข้อมูล expense
+    fetchExpenses();
   }, []);
 
   const fetchExpenses = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/public-expenses'); // ดึงเฉพาะ public expenses
+      const response = await axios.get('http://localhost:5000/api/public-expenses');
       setExpenses(response.data.expenses);
     } catch (error) {
       console.error('Error fetching public expenses:', error);
@@ -32,7 +32,7 @@ const Home: React.FC = () => {
 
   const fetchPublicExpenses = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/public-expenses'); // ตรวจสอบ URL
+      const response = await axios.get('http://localhost:5000/api/public-expenses');
       setExpenses(response.data.expenses);
     } catch (error) {
       console.error('Error fetching public expenses:', error);
