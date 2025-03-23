@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom'; // นำเข้า useNavigate
+import { useNavigate } from 'react-router-dom';
 
 interface RegisterFormData {
   username: string;
@@ -19,7 +19,7 @@ const Register: React.FC = () => {
     profileImage: null
   });
 
-  const navigate = useNavigate(); // ใช้ useNavigate เพื่อเปลี่ยนเส้นทาง
+  const navigate = useNavigate();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -49,7 +49,7 @@ const Register: React.FC = () => {
       });
       if (response.data.success) {
         alert('Register successful');
-        navigate('/login'); // เปลี่ยนเส้นทางไปที่หน้า login หลังจากสมัครสำเร็จ
+        navigate('/login');
       } else {
         alert('Register failed');
       }
