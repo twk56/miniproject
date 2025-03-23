@@ -10,18 +10,17 @@ const AddExpense: React.FC = () => {
     date: '',
     image: null
   });
-  const [loading, setLoading] = useState(false); // เพิ่ม loading state
-  const [error, setError] = useState(''); // เพิ่ม error state
-  const [success, setSuccess] = useState(''); // เพิ่ม success message
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
 
-  const user_id = localStorage.getItem('user_id'); // ดึง user_id จาก localStorage
+  const user_id = localStorage.getItem('user_id');
 
   const navigate = useNavigate();
 
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (!token) {
-      // ถ้าไม่มี token ให้กลับไปที่หน้า login
       navigate('/');
     }
   }, [navigate]);
@@ -39,10 +38,10 @@ const AddExpense: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true); // เริ่มต้นโหลด
+    setLoading(true);
 
     const data = new FormData();
-    data.append('user_id', user_id as string); // ส่ง user_id ไปกับ form data
+    data.append('user_id', user_id as string);
     data.append('title', formData.title);
     data.append('amount', formData.amount);
     data.append('category', formData.category);
@@ -56,7 +55,7 @@ const AddExpense: React.FC = () => {
         headers: { 'Content-Type': 'multipart/form-data' }
       });
       if (response.data.success) {
-        setSuccess('เพิ่มข้อมูลสำเร็จ'); // แสดงข้อความเมื่อเพิ่มสำเร็จ
+        setSuccess('เพิ่มข้อมูลสำเร็จ');
         setFormData({
           title: '',
           amount: '',
@@ -65,13 +64,13 @@ const AddExpense: React.FC = () => {
           image: null
         });
       } else {
-        setError('การเพิ่มข้อมูลไม่สำเร็จ'); // แสดงข้อผิดพลาดหากไม่สำเร็จ
+        setError('การเพิ่มข้อมูลไม่สำเร็จ');
       }
     } catch (error) {
       setError('Error adding expense');
       console.error('Error adding expense', error);
     } finally {
-      setLoading(false); // หยุดโหลดเมื่อเสร็จ
+      setLoading(false);
     }
   };
 
