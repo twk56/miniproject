@@ -11,8 +11,8 @@ const Sidebar: React.FC<SidebarProps> = ({ username }) => {
   const handleLogout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('username');
-    navigate('/'); // หลังจาก logout ไปหน้า login
-    window.location.reload(); // ทำการรีเฟรชหน้าเพื่ออัปเดต UI
+    navigate('/');
+    window.location.reload();
   };
 
   return (
